@@ -10,9 +10,8 @@ COLOR_NONE='\033[0m'
 
 source ${SCRIPT_PATH}/lib/query_problem.sh
 
-function usage()
-{
 
+function usage() {
     echo -e "Usage: ${0} [file]"
     echo -e ""
     echo -e "Example:"
@@ -20,8 +19,6 @@ function usage()
     echo -e "   ${0} ./LargestNumber.cpp"
     echo -e ""
 }
-
-
 
 if [ $# -lt 1 ] || [[ ! -f ${1} ]]; then
     usage
@@ -38,15 +35,6 @@ URL=$(echo $URL | sed -e 's/oj\.leetcode\.com/leetcode\.com/g')
 get_question_slug ${URL}
 query_problem ${URL} ${QUESTION_TITLE_SLUG}
 
-#echo "$QUESTION_CONTENT"
-#echo $QUESTION_DIFFICULTY
-#echo $QUESTION_TITLE
-#echo $QUESTION_ID
-#echo $QUESTION_FRONTEND_ID
-#echo $QUESTION_CATEGORY
-
-
 FILE=`echo ${FILE} | sed "s/.*\/algorithms/\.\/algorithms/"`
 
-echo "|${QUESTION_FRONTEND_ID}|[${QUESTION_TITLE}](${URL}) | [C++](${FILE})|${QUESTION_DIFFICULTY}|"
-
+echo "|${QUESTION_FRONTEND_ID}|[${QUESTION_TITLE}](${URL}) | [Java](${2})|${QUESTION_DIFFICULTY}|"
