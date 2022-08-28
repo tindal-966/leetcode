@@ -31,60 +31,30 @@
 package org.example.squaresOfASortedArray;
 
 /**
- * 1 ms	43.9 MB
+ * Notes:
+ * 1. the minimum time-complexity of sorting method is O(nlog2n), so can't use
+ * 2. create another array
+ * 3. **the max value after square always appear in the first or the last**, so use two pivot to judge where is max
  */
 class Solution {
     public int[] sortedSquares(int[] nums) {
-        int negativePivot = -1, positivePivot = -1;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] < 0) negativePivot = i;
-            if (positivePivot == -1 && nums[i] >= 0) positivePivot = i;
-        }
-
-        if (negativePivot == -1) {
-            for (int i = 0; i < nums.length; i++) {
-                nums[i] = nums[i] * nums[i];
-            }
-
-            return nums;
-        }
-
+        int forwardPivot = 0, reversePivot = nums.length - 1, index = nums.length - 1;
         int[] result = new int[nums.length];
-        if (positivePivot == -1) {
-            for (int i = 0; i < nums.length; i++) {
-                int v = nums[nums.length - 1 - i];
-                result[i] = v * v;
-            }
 
-            return result;
-        }
+        while (forwardPivot <= reversePivot) {
+            int squareForward = nums[forwardPivot] * nums[forwardPivot];
+            int squareReverse = nums[reversePivot] * nums[reversePivot];
 
-        int index = 0;
-        while (negativePivot >= 0 && positivePivot < nums.length) {
-            if (-nums[negativePivot] > nums[positivePivot]) {
-                result[index++] = nums[positivePivot] * nums[positivePivot];
-                positivePivot++;
+            if (squareForward < squareReverse) {
+                result[index--] = squareReverse;
+                reversePivot--;
             } else {
-                result[index++] = nums[negativePivot] * nums[negativePivot];
-                negativePivot--;
-            }
-        }
-        if (index != nums.length) {
-            if (negativePivot >= 0) {
-                for (int i = index; i < nums.length; i++) {
-                    result[i] = nums[negativePivot] * nums[negativePivot];
-                    negativePivot--;
-                }
-            } else {
-                for (int i = index; i < nums.length; i++) {
-                    result[i] = nums[positivePivot] * nums[positivePivot];
-                    positivePivot++;
-                }
+                result[index--] = squareForward;
+                forwardPivot++;
             }
         }
 
         return result;
     }
 }
-
 
