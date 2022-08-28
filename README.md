@@ -30,3 +30,4 @@ Order by recommendation from [代码随想录](https://github.com/youngyangyang0
 
 | # | Title | Solution | Difficulty |
 |---| ----- | -------- | ---------- |
+|704|[Binary Search](https://leetcode.com/problems/binary-search/) | [Java](./src/main/java/org/example/binarySearch/Solution.java)|Easy|
