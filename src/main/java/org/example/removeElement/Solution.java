@@ -60,6 +60,9 @@
  ******************************************************************************************************/
 package org.example.removeElement;
 
+/**
+ * 1 ms	42.5 MB
+ */
 class Solution {
     public int removeElement(int[] nums, int val) {
         int pivot = 0, pivotDynamic = 0, length = nums.length;

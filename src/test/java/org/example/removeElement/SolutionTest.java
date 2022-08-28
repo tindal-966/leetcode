@@ -82,7 +82,7 @@ public class SolutionTest {
     }
 
     public void test(int[] nums, int val, int[] exceptedNums) {
-        int result = new Solution().removeElement(nums, val);
+        int result = new SolutionTwoWayPivot().removeElement(nums, val);
 
         Assert.assertEquals(exceptedNums.length, result);
         Assert.assertArrayEquals(
