@@ -37,7 +37,7 @@ public class MyLinkedListTest {
         myLinkedList.addAtHead(1);
         myLinkedList.deleteAtIndex(0);
 
-        assertArrayEquals(new int[]{-1}, myLinkedList2Array(myLinkedList));
+        assertArrayEquals(new int[]{}, myLinkedList2Array(myLinkedList));
     }
 
     /**
@@ -67,9 +67,8 @@ public class MyLinkedListTest {
 
     public static int[] myLinkedList2Array(MyLinkedList linkedList) {
         List<Integer> result = new ArrayList<>();
-        while (linkedList != null) {
-            result.add(linkedList.val);
-            linkedList = linkedList.next;
+        for (int i = 0; i < linkedList.getSize(); i++) {
+            result.add(linkedList.get(i));
         }
 
         return result.stream().mapToInt(Integer::intValue).toArray();

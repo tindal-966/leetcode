@@ -1,93 +1,120 @@
 package org.example.designLinkedList;
 
 class MyLinkedList {
-    public int val;
-    public MyLinkedList next;
-    public MyLinkedList prev;
+    static class Node {
+        public int val;
+        public Node next;
+        public Node prev;
 
-    public MyLinkedList() {
-        val = -1; // unConstructNode
+        Node() {
+            this.val = -1;
+        }
+        Node(int val) {
+            this.val = val;
+        }
+        Node(int val, Node next) {
+            this.val = val;
+            this.next = next;
+        }
+        Node(int val, Node next, Node prev) {
+            this.val = val;
+            this.next = next;
+            this.prev = prev;
+        }
     }
 
-    public int get(int index) { // todo MyLinkedList t = new MyLinkedList(); t.get(0) == -1 ??
-        MyLinkedList p = this;
-        while (p != null && index > 0) {
-            p = p.next;
-            index--;
-        }
+    private final Node dummyHead;
+    private int size;
+    public MyLinkedList() {
+        dummyHead = new Node(-1);
+        size = 0;
+    }
 
-        return (index == 0 && p != null)? p.val: -1;
+    public int get(int index) {
+        Node node = getNode(index);
+
+        return node == null? -1: node.val;
     }
 
     public void addAtHead(int val) {
-        if (this.val == -1) {
-            this.val = val;
-            return;
-        }
+        Node node = new Node(val);
+        node.prev = dummyHead;
+        node.next = dummyHead.next;
 
-        MyLinkedList p = this;
-        while (p.prev != null) {
-            p = p.prev;
+        if (dummyHead.next != null) {
+            dummyHead.next.prev = node;
         }
+        dummyHead.next = node;
 
-        MyLinkedList newHead = new MyLinkedList();
-        newHead.val = val;
-        newHead.prev = null;
-        newHead.next = p;
-        p.prev = newHead;
+        size++;
     }
 
     public void addAtTail(int val) {
-        if (this.val == -1) {
-            this.val = val;
-            return;
-        }
-
-        MyLinkedList p = this;
+        Node p = dummyHead;
         while (p.next != null) {
             p = p.next;
         }
 
-        MyLinkedList newTail = new MyLinkedList();
-        newTail.val = val;
-        newTail.prev = p;
-        newTail.next = null;
-        p.next = newTail;
+        Node node = new Node(val);
+        node.prev = p;
+        p.next = node;
+
+        size++;
     }
 
-    public void addAtIndex(int index, int val) { // 如果 index == length, 等同于 addAtTail
-        MyLinkedList p = this;
+    /**
+     * Add a node of value val before the index-th node in the linked list.
+     */
+    public void addAtIndex(int index, int val) { // WHEN index == length, EQUAL addAtTail
+        if (index > size) {
+            return;
+        }
 
-        // find index-1
-        int pi = 0;
-        for (; pi < index - 1 && p != null; pi++) {
+        Node p = dummyHead;
+        while (index-- > 0) {
             p = p.next;
         }
 
-        if (p == null) return; // invalid index
+        Node node = new Node(val);
+        node.prev = p;
+        node.next = p.next;
+        if (node.next != null) {
+            node.next.prev = node;
+        }
+        p.next = node;
 
-        MyLinkedList newNode = new MyLinkedList();
-        newNode.val = val;
-        newNode.next = p.next;
-        newNode.prev = p;
-        p.next = newNode;
+        size++;
     }
 
-    public void deleteAtIndex(int index) { // todo MyLinkedList t = new MyLinkedList(); t.addAtHead(1); t.deleteAtIndex(0); NOW t == null?? OR t.val == -1??
-        MyLinkedList p = this;
-        while (p != null && index > 0) {
+    public void deleteAtIndex(int index) {
+        Node node = getNode(index);
+        if (node == null) return;
+
+        if (node.next != null) {
+            node.next.prev = node.prev;
+        }
+        if (node.prev != null) {
+            node.prev.next = node.next;
+        }
+
+        size--;
+    }
+
+    private Node getNode(int index) {
+        if (index > size - 1) { // dummyHead
+            return null;
+        }
+
+        Node p = dummyHead.next;
+        while (index-- > 0) {
             p = p.next;
-            index--;
         }
 
-        if (index != 0 || p == null) return; // index >= length
+        return p;
+    }
 
-        if (p.next != null) p.next.prev = p.prev;
-        if (p.prev != null) p.prev.next = p.next;
-
-        if (p.next == null && p.prev == null) {
-            p.val = -1;
-        }
+    public int getSize() {
+        return size;
     }
 }
 
