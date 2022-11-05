@@ -14,26 +14,23 @@ import org.example.lib.ListNode;
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        ListNode dummyNode = new ListNode(-1, head); // 使用 dummyNode 可以忽视头两个互换和后续互换的不同（后续互换 [n, n+1] 需要考虑 n-1 的 next 问题）
+        ListNode dummyHead = new ListNode(-1, head); // 使用 dummyHead 可以忽视头两个互换和后续互换的不同（后续互换 [n, n+1] 需要考虑 n-1 的 next 问题）
 
-        ListNode cursor = dummyNode;
-        while (cursor != null) {
+        ListNode cursor = dummyHead;
+        while (cursor.next != null && cursor.next.next != null) {
             ListNode next = cursor.next;
-            if (next == null) {
-                break;
-            }
+            ListNode next2 = cursor.next.next;
 
-            ListNode next2 = next.next;
-            if (next2 != null) {
-                cursor.next = next2;
+            // set [n-1]
+            cursor.next = next2;
+            // swap [n, n+1]
+            ListNode temp = next2.next;
+            next2.next = next;
+            next.next = temp;
 
-                ListNode temp = next2.next;
-                next2.next = next;
-                next.next = temp;
-            }
-            cursor = next;
+            cursor = cursor.next.next;
         }
 
-        return dummyNode.next;
+        return dummyHead.next;
     }
 }
