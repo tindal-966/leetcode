@@ -5,32 +5,36 @@ import java.util.List;
 
 class SolutionTimeRefactor {
     public List<String> commonChars(String[] words) {
-        List<String> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
         if (words.length == 0) return result;
 
-        int[] lowercaseLetters = new int[26];
-        words[0].chars().forEach(c -> lowercaseLetters[c - 'a']++);
-
+        int[] count = count(words[0]);
         for (int i = 1; i < words.length; i++) {
-            int[] temp =  new int[26];
-            words[i].chars().forEach(c -> temp[c - 'a']++);
-
-            // update lowercaseLetters
-            for (int j = 0; j < 26; j++) {
-                if (lowercaseLetters[j] != 0) {
-                    lowercaseLetters[j] = Math.min(temp[j], lowercaseLetters[j]);
-                }
-            }
+            count = getEachMin(count, count(words[i]));
         }
 
         for (int i = 0; i < 26; i++) {
-            char c = (char) ('a' + i);
-            while (lowercaseLetters[i] != 0) {
-                result.add(String.valueOf(c));
-                lowercaseLetters[i]--;
+            while (count[i]-- > 0) {
+                result.add(String.valueOf((char)('a' + i)));
             }
         }
 
         return result;
+    }
+
+    public int[] count(String s) {
+        int[] ints = new int[26];
+        for (char c: s.toCharArray()) ints[c - 'a']++;
+
+        return ints;
+    }
+
+    public int[] getEachMin(int[] a, int[] b) {
+        int[] ints = new int[26];
+        for (int i = 0; i < 26; i++) {
+            ints[i] = Math.min(a[i], b[i]);
+        }
+
+        return ints;
     }
 }
