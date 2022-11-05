@@ -22,9 +22,9 @@ public class Solution {
      * Follow up:
      * 1. O(m + n) time and use only O(1) memory
      */
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) { // todo refactor
-        int lenA = getLength(headA);
-        int lenB = getLength(headB);
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        int lenA = getLength(headA); // O(m)
+        int lenB = getLength(headB); // O(n)
 
         ListNode longListNode = headA;
         ListNode shortListNode = headB;
@@ -35,26 +35,21 @@ public class Solution {
 
         int skipLength = lenA - lenB < 0? lenB - lenA: lenA - lenB;
         ListNode cur = longListNode;
-        while (skipLength-- > 0) {
+        while (skipLength-- > 0) { // O(abs(m-n))
             cur = cur.next;
         }
 
-        ListNode shorCur = shortListNode;
-        ListNode intersectNode = null;
-        while (cur != null) {
-            if (shorCur != cur && intersectNode != null) {
-                return null;
+        ListNode shortCur = shortListNode;
+        while (cur != null) { // O(max(m, n) - abs(m-n))
+            if (shortCur == cur) {
+                return cur;
             }
 
-            if (shorCur == cur && intersectNode == null) {
-                intersectNode = cur;
-            }
-
-            shorCur = shorCur.next;
+            shortCur = shortCur.next;
             cur = cur.next;
         }
 
-        return intersectNode;
+        return null; // total time: m>n, O(m+n+m-n+m-(m-n))=O(2m+n); m<n, O(m+n+n-m+n-(n-m))=O(2n+m)
     }
 
     public int getLength(ListNode listNode) {
