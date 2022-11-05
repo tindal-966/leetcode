@@ -24,13 +24,13 @@ public class SolutionDoubleCursor {
      */
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         // IF intersect:
-        //      listA + listB = skipA + intersect + skipB + intersect
-        //      listB + listA = skipB + intersect + skipA + intersect
+        //      listA + listB = (skipA + intersect) + (skipB + intersect) = (skipA + intersect + skipB) + intersect
+        //      listB + listA = (skipB + intersect) + (skipA + intersect) = (skipB + intersect + skipA) + intersect
         // ELSE
         //      listA + listB = skipA + skipB
         //      listB + listA = skipB + skipA
         //
-        // just check at last intersect whether consistent is OK
+        // just check at last intersect whether is consistency
 
         ListNode curA = headA;
         ListNode curB = headB;

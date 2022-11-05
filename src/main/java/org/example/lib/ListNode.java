@@ -20,7 +20,9 @@ public class ListNode {
     }
 
     /**
-     * Base on this Node, get after index. If index = 0, return this
+     * Base on this, get after index Node.
+     * If index = 0, return this
+     * If index < 0, return null
      */
     public ListNode getAfter(int index) {
         if (index < 0) {
