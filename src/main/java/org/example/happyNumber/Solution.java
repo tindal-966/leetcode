@@ -22,7 +22,7 @@ class Solution {
         return n == 1;
     }
 
-    private int[] split(int n) {
+    private int[] splitByDigit(int n) {
         if (n < 0) n = -n;
 
         int temp = n;
