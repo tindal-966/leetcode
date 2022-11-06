@@ -25,7 +25,7 @@ public class SolutionTest {
 
     private void commonAssert(int[] mums, int target, int[] output) {
         // WHEN
-        int[] ints = new Solution().twoSum(mums, target);
+        int[] ints = new SolutionTimeRefactor().twoSum(mums, target);
 
         // THEN
         assertArrayEquals(
