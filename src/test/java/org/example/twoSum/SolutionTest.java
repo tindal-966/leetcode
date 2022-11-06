@@ -18,6 +18,7 @@ public class SolutionTest {
     public void edge() {
 //        commonAssert(new int[]{2, 7, 11, 15}, 30, new int[0]); // always one answer
 //        commonAssert(new int[]{2}, 2, new int[0]); // 2 <= nums.length
+//        commonAssert(new int[]{3, 3, 4, 5}, 7, new int[]{0/1, 2}); // always one answer
 
         commonAssert(new int[]{-1, -2, 3, 5}, 2, new int[]{0, 2});
         commonAssert(new int[]{-1, -2, -3, -4}, -3, new int[]{0, 1});
