@@ -6,7 +6,7 @@ class Solution {
 
         int i = 0;
         while (i < chars.length) {
-            reverse(chars, i, i + k - 1 < chars.length ? i + k - 1 : chars.length - 1);
+            reverse(chars, i, Math.min(i + k - 1, chars.length - 1));
             i += (2 * k);
         }
 
