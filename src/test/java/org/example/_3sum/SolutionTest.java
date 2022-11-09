@@ -35,13 +35,13 @@ public class SolutionTest {
         assertArrayEquals(sort(output), sort(lists));
     }
 
-    private Object[] sort(List<List<Integer>> list) {
+    public Object[] sort(List<List<Integer>> list) {
         return list.stream().map(e ->
                 e.stream().sorted().map(String::valueOf).collect(Collectors.joining(" "))
         ).sorted().toArray();
     }
 
-    private Object[] sort(int[][] array) {
+    public Object[] sort(int[][] array) {
         List<String> list = new ArrayList<>();
         for (int[] t : array) {
             list.add(Arrays.stream(t).sorted().mapToObj(String::valueOf).collect(Collectors.joining(" ")));
